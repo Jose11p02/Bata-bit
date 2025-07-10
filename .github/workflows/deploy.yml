@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]  # Se ejecuta al hacer push a "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # ¡Corregido! (usa "ubuntu-latest")
+
+    steps:
+      # 1. Descarga el código del repositorio
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2. Configura Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"  # Versión como string
+
+      # 3. Instala dependencias y genera el build
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+      # 4. Sube el build a GitHub Pages (¡nombre corregido!)
+      - name: Deploy to GitHub Pages  # Antes: "Deploy" (con typo)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Carpeta con los archivos estáticos
