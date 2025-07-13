@@ -1,10 +1,51 @@
+import { animate, createScope,Scope } from 'animejs';
+import { useEffect, useRef } from 'react';
+
 function Section1() {
+
+    const root = useRef<HTMLElement|null>(null);
+    const scope = useRef<Scope|null>(null);
+
+    useEffect( () => {
+      if (!root.current) return;
+      if (!scope) return;
+
+      const el = root.current;
+
+      scope.current = createScope({root:el});
+
+      const observe = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            
+            animate(el,{
+            opacity: [
+              {to:1,duration:500,ease:'easeOut'}
+            ]
+          })
+          }
+        },
+        {
+          threshold:0.3
+        }
+      );
+
+      observe.observe(root.current);
+      return () => observe.disconnect()
+
+    /*animate(root.current,{
+      opacity: [
+        {to:1,duration:500,ease:'easeOut'}
+      ]
+    })*/
+
+    },[]);
 
   return (
     <>
-    <section className="w-full h-[830px] bg-Off_White flex flex-col text-center justify-center" >
+    <section ref={root} className="w-full h-[830px] bg-Off_White flex flex-col text-center justify-center opacity-0" >
     <div>
-      <img src="/bitcoin.png" alt="bitcoin" className="w-40 h-40 mb-10 mx-auto self-center" />
+      <img src="/public/bitcoin.png" alt="bitcoin" className="w-40 h-40 mb-10 mx-auto self-center" />
       <h2 className="mx-auto text-xl font-bold w-56 " >Visibilizamos todas las tazas de cambio.</h2>
       <p className="mx-auto pt-4 w-60 text-sm text-Grey font-serif "  >Traemos información en tiempo real de las casas de cambio y las monedas más importantes del mundo.</p>
     </div>

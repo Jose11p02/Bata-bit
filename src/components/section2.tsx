@@ -1,10 +1,53 @@
+import { animate, createScope,Scope } from 'animejs';
+import { useEffect, useRef } from 'react';
+
 function Section2() {
+
+    const root = useRef<HTMLElement|null>(null);
+    const scope = useRef<Scope|null>(null);
+
+    useEffect( () => {
+      if (!root.current) return;
+      if (!scope) return;
+
+      const el = root.current;
+
+      scope.current = createScope({root:el});
+
+      const observe = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            
+            animate(el,{
+            opacity: [
+              {to:1,duration:500,ease:'easeOut'}
+            ]
+          })
+          }
+        },
+        {
+          threshold:0.3
+        }
+      );
+
+      observe.observe(root.current);
+      return () => observe.disconnect()
+
+    /*animate(root.current,{
+      opacity: [
+        {to:1,duration:500,ease:'easeOut'}
+      ]
+    })*/
+
+    },[]);
+
+
   const div_cards_styles = "mx-auto bg-Warm_Black_plus w-56 p-4 h-auto mt-4 lg:mr-2"
   const p_cards_styles = "text-xs w-52 text-Grey pr-2 "
 
   return (
     <>
-    <section className="w-full h-auto relative text-Just_White bg-Warm_Black flex flex-col justify-center mx-auto " >
+    <section ref={root} className="opacity-0 w-full h-auto relative text-Just_White bg-Warm_Black flex flex-col justify-center mx-auto " >
       <img src="/batata.png" alt="batata" className="w-8 mx-auto absolute inset-x-0 top-[-12px] " />
       <div className="mx-auto text-center mt-12 " >
         <h2 className="font-bold text-xl w-56 " >Creamos un producto sin comparación.</h2>

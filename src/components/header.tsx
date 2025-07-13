@@ -6,7 +6,7 @@ function Header() {
   return (
     <>
     <header className={header_styles} >
-      <img src="/Bata-bit/assets/Group 19.svg" alt="logo" className="mx-auto pb-6"/>
+      <img src="/Group 19.svg" alt="logo" className="mx-auto pb-6"/>
       <div className="relative text-Just_White self-center " >
         <h1 className="mx-auto text-xl font-bold w-56 " >La próxima revolución en el intercambio de criptomonedas.</h1>
         <p className="mx-auto pt-4 w-56 text-sm" >Batatabit te ayuda a navegar entre los diferentes precios y tendencias.</p>
