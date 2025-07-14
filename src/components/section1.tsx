@@ -19,8 +19,9 @@ function Section1() {
           if (entry.isIntersecting) {
             
             animate(el,{
-            opacity: [
-              {to:1,duration:500,ease:'easeOut'}
+            translateY:[
+              {to:100 ,duration:0},
+              {to:0,duration:600,ease:'easeOut'}
             ]
           })
           }
@@ -43,7 +44,7 @@ function Section1() {
 
   return (
     <>
-    <section ref={root} className="w-full h-[830px] bg-Off_White flex flex-col text-center justify-center opacity-0" >
+    <section ref={root} className="w-full h-[830px] bg-Off_White flex flex-col text-center justify-center" >
     <div>
       <img src="/public/bitcoin.png" alt="bitcoin" className="w-40 h-40 mb-10 mx-auto self-center" />
       <h2 className="mx-auto text-xl font-bold w-56 " >Visibilizamos todas las tazas de cambio.</h2>
